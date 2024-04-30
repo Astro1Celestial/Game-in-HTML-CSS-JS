@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo Impar/Par</title>
+    <style>
+        body {
+            background-image: url("img/img de fundo.webp");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+            h1{text-decoration: underline; text-align: center;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;}
+        }
+
+    </style>
+</head>
+<body>
+    <center>
+        <h1><strong>Jogo do Impar e Par</strong></h1>
+
+        
+        <label for="escolhaLabel">Escolha um Número:</label> <input type="text" name="escolha" id="escolha">
+         <br> <br>
+        <button onclick="EscolhaPar()" id="parButton">Par</button>
+        /
+        <button onclick="EscolhaImpar()" id="imparButton">Impar</button>
+        <br> <br>
+        <button onclick="calcular()" id="calcularButton">Par ou Ímpar</button>
+        <br> <br>
+        <canvas id="projeto" width="400" height="200" style="border: 2px solid #000000;"></canvas>
+        
+
+    </center>
+
+    <script>
+
+        var canvas = document.getElementById('projeto'); 
+        var x = canvas.getContext('2d');    
+
+        function EscolhaPar() {
+            alert("Você escolheu PAR");
+            document.getElementById('parButton').disabled = true;
+            document.getElementById('imparButton').disabled = true;
+            imparPar = 0;
+        }
+
+        function EscolhaImpar() {
+            alert("Você escolheu ÍMPAR");
+            document.getElementById('parButton').disabled = true;
+            document.getElementById('imparButton').disabled = true;
+            imparPar = 1;
+        }
+
+        function calcular() {
+            var escolha = parseFloat(document.getElementById('escolha').value);
+            var aleatorio = Math.floor(Math.random() * 10) + 1;
+            var resultado = escolha + aleatorio;
+                
+            if ((imparPar == 0 && resultado % 2 == 0) || (imparPar == 1 && resultado % 2 != 0)) {
+                alert("Você ganhou! O resultado foi " + resultado + ".");
+                var img = new Image();
+                img.onload = function() {
+                x.drawImage(img, 0, 0, canvas.width, canvas.height);
+                };
+                img.src = 'img/ganhou1.png';
+              } 
+            else {
+                alert("Você perdeu! O resultado foi " + resultado + ".");
+                var img = new Image();
+                img.onload = function() {
+                x.drawImage(img, 0, 0, canvas.width, canvas.height);
+                };
+                img.src = 'img/perdeu.jpg';
+            }
+            document.getElementById('calcularButton').disabled = true;
+        }
+
+    </script>
+</body>
+</html>
